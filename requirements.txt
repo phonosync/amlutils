@@ -1,0 +1,2 @@
+azure==4.0.0
+azureml-sdk==1.0.60
