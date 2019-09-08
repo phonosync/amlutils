@@ -1,14 +1,17 @@
+import os
 from azureml.core import Workspace, ComputeTarget
 from azureml.core.compute import AmlCompute
 from azureml.core.authentication import InteractiveLoginAuthentication
 
 
-def get_ws(tenant=None):
+def get_ws():
     """
-    :param tenant: optional, your tenant id. Only needed when you work on different tenants
-    See https://github.com/Azure/MachineLearningNotebooks/issues/131
+    get azure ml workspace from config.json in project root. If you work on different tenants it might be necessary
+    to provide the tenant id and got through the cli for authentication. In this case simply set the environment
+    variable TENANT=<TENANT ID>
     :return: azureml Workspace instance
     """
+    tenant = os.environ.get('TENANT')
     if tenant:
         auth = InteractiveLoginAuthentication(tenant_id = tenant)
         ws = Workspace.from_config(auth = auth)
